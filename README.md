@@ -46,7 +46,7 @@ Al.audit/
 Local Installation & Setup
 
 1. Clone the Repository
-git clone [https://github.com/ayubsoaliha-SS/Al.audit.git](https://github.com/ayubsoaliha-SS/Al.audit.git)
+git clone https://github.com/ayubsoaliha-SS/Al.audit.git
 cd Al.audit
 
 2. Configure the Backend Service
