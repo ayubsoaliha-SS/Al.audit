@@ -1,4 +1,6 @@
 # ◈ AI Portfolio Audit System
+![Application Dashboard Placeholder](https://via.placeholder.com/800x450.png?text=AI+Portfolio+Audit+Workspace+Dashboard)
+*Note: Replace this placeholder URL with a real screenshot of your frontend workspace once fully deployed!*
 
 An automated, developer-focused workspace built to refactor software engineering project summaries, analyze repository structures, and optimize impact descriptions to align perfectly against technical recruiter criteria and modern Applicant Tracking Systems (ATS).
 
@@ -18,7 +20,7 @@ An automated, developer-focused workspace built to refactor software engineering
 
 | Layer | Technologies Used |
 | :--- | :--- |
-| **Frontend** | React, Vite, Tailwind CSS, JavaScript (ES6+) |
+| **Frontend** | React, Vite, Tailwind CSS, JavaScript |
 | **Backend** | Node.js, Express.js, OpenAI API SDK, Cors |
 | **Tooling** | Git, npm, Postman |
 
@@ -43,6 +45,12 @@ Al.audit/
 │   └── package.json
 └── .gitignore              # Crucial repository exclusion files
 
+### 4. Explicitly Mention the Node.js Version
+Since your backend leverages modern native `fetch` features that specifically require newer Node runtimes, it's highly beneficial to state the requirement clearly under the installation section so other developers don't try to run it on older environments.
+
+    ### Prerequisites
+    * **Node.js:** v24.0.0 or higher (required for native fetch architecture)
+
 Local Installation & Setup
 
 1. Clone the Repository
@@ -66,3 +74,5 @@ Bash
 cd frontend
 npm install
 npm run dev
+
+
