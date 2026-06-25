@@ -12,11 +12,21 @@ function App() {
   const [registerData, setRegisterData] = useState({ name: '', email: '', phone: '', password: '' });
 
   // 🔥 FIX 1: Turn history into a dynamic React State array
-  const [history, setHistory] = useState([
-    { id: 1, date: '2026-06-22', title: 'LUNA Intelligence Platform', role: 'Full Stack Engineer', score: 84 },
-    { id: 2, date: '2026-06-18', title: 'E-Commerce Core API', role: 'Backend Developer', score: 62 },
-    { id: 3, date: '2026-05-30', title: 'Developer Portfolio v2', role: 'UI Engineer', score: 91 },
-  ]);
+  const [history, setHistory] = useState(() => {
+  const saved = localStorage.getItem('auditHistory');
+  return saved ? JSON.parse(saved) : [ /* keep your original default array here */ ];
+});
+useEffect(() => {
+  localStorage.setItem('auditHistory', JSON.stringify(history));
+}, [history]);
+const handleNewAuditLogged = (newAudit) => {
+  const newEntry = {
+    id: Date.now(),
+    date: new Date().toLocaleDateString(),
+    ...newAudit
+  };
+  setHistory((prev) => [newEntry, ...prev]); // Adds new items to the top
+};
 
   // 🔥 FIX 2: Create an append function to push new audits to the top of the log list
   const handleNewAuditLogged = (newAudit) => {
