@@ -50,34 +50,31 @@ function App() {
     <div className="bg-gray-950 min-h-screen font-sans flex flex-col text-gray-100 selection:bg-amber-500 selection:text-gray-950">
       
       {/* HEADER NAVIGATION BAR */}
-      <header className="border-b border-gray-800 bg-gray-900 px-8 py-4 shadow-xl sticky top-0 z-40 backdrop-blur-md bg-opacity-90">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <nav className="w-1/3 flex items-center gap-6 text-sm font-medium">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setCurrentTab('home')}>
-              <span className="text-amber-500 text-2xl font-extrabold select-none">◈</span>
-            </div>
-            <button onClick={() => setCurrentTab('home')} className={`pb-1 transition-all border-b-2 ${currentTab === 'home' ? 'text-amber-400 border-amber-400 font-semibold' : 'text-gray-400 border-transparent hover:text-gray-200'}`}>Home</button>
-            <button onClick={() => setCurrentTab('about')} className={`pb-1 transition-all border-b-2 ${currentTab === 'about' ? 'text-amber-400 border-amber-400 font-semibold' : 'text-gray-400 border-transparent hover:text-gray-200'}`}>About</button>
-            <button onClick={() => setCurrentTab('history')} className={`pb-1 transition-all border-b-2 ${currentTab === 'history' ? 'text-amber-400 border-amber-400 font-semibold' : 'text-gray-400 border-transparent hover:text-gray-200'}`}>History</button>
-          </nav>
-          <div className="w-1/3 flex justify-center">
-            <h1 className="text-lg md:text-xl font-bold tracking-[0.2em] text-white text-center uppercase select-none">AI Portfolio Audit</h1>
-          </div>
-          <div className="w-1/3 flex justify-end items-center gap-4">
-            {isLoggedIn ? (
-              <div className="flex items-center gap-4">
-                <span className="text-xs font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-900 px-3 py-1.5 rounded capitalize">👋 {userProfile?.name || 'Developer'}</span>
-                <button onClick={() => { setIsLoggedIn(false); setUserProfile(null); }} className="text-xs text-gray-400 hover:text-red-400 transition-colors font-medium">Logout</button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-3">
-                <button onClick={() => setShowLoginModal(true)} className="text-sm text-gray-400 hover:text-white transition-colors px-3 py-1.5 font-medium">Sign In</button>
-                <button onClick={() => setShowRegisterModal(true)} className="text-sm bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-gray-950 font-bold px-4 py-1.5 rounded-md shadow-md transition-all active:scale-95">Register</button>
-              </div>
-            )}
-          </div>
-        </div>
-      </header>
+      <nav className="w-full bg-slate-950 border-b border-slate-800 px-4 py-4 md:px-8">
+  {/* The key fix: flex-col for mobile, sm:flex-row for desktop */}
+  <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    
+    {/* LOGO SECTION */}
+    <div className="flex items-center gap-2">
+      <span className="text-amber-400 text-xl">◆</span>
+      <h1 className="text-base md:text-lg font-black tracking-widest text-white uppercase whitespace-nowrap m-0">
+        AI Portfolio Audit
+      </h1>
+    </div>
+
+    {/* NAVIGATION LINKS SECTION */}
+    <div className="flex flex-wrap items-center justify-center gap-4 text-xs md:text-sm font-medium text-slate-400">
+      <a href="#home" className="hover:text-white transition-colors">Home</a>
+      <a href="#about" className="hover:text-white transition-colors">About</a>
+      <a href="#signin" className="hover:text-white transition-colors">Sign In</a>
+      
+      <button className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-md font-bold transition-colors shadow-md">
+        Register
+      </button>
+    </div>
+
+  </div>
+</nav>
 
       {/* RENDER SURFACES */}
       <main className="flex-grow py-12 px-6">
