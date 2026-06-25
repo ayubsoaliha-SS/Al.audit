@@ -17,7 +17,7 @@ export default function ProjectAuditor({ onAuditLogged }) {
     setGithubLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:5000/api/audit/github-prefill', {
+      const response = await fetch('https://al-audit-backend.vercel.app/api/audit/github-prefill', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: formData.githubUrl }),
@@ -44,7 +44,7 @@ export default function ProjectAuditor({ onAuditLogged }) {
     setResult(null);
     setError(null);
     try {
-      const response = await fetch('http://localhost:5000/api/audit/project', {
+      const response = await fetch('https://al-audit-backend.vercel.app/api/audit/project', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
