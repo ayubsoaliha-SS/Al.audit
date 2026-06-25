@@ -19,15 +19,6 @@ function App() {
 useEffect(() => {
   localStorage.setItem('auditHistory', JSON.stringify(history));
 }, [history]);
-const handleNewAuditLogged = (newAudit) => {
-  const newEntry = {
-    id: Date.now(),
-    date: new Date().toLocaleDateString(),
-    ...newAudit
-  };
-  setHistory((prev) => [newEntry, ...prev]); // Adds new items to the top
-};
-
   // 🔥 FIX 2: Create an append function to push new audits to the top of the log list
   const handleNewAuditLogged = (newAudit) => {
     const formattedItem = {
