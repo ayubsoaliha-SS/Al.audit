@@ -94,129 +94,141 @@ export default function ProjectAuditor({ onAuditLogged }) {
     }));
   };
 
-  return (
-    <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      
-      {/* INPUT WORKSPACE */}
-      <div className="lg:col-span-5 bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-xl space-y-6">
-        <div>
-          <h2 className="text-xl font-bold text-white tracking-tight">Project Workspace</h2>
-          <p className="text-xs text-gray-400 mt-0.5">Automate setup with GitHub repositories or map descriptions directly.</p>
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">Autofill via GitHub URL</label>
-          <div className="flex gap-2">
-            <input type="text" name="githubUrl" value={formData.githubUrl} onChange={handleInputChange} className="flex-grow bg-gray-950 border border-gray-800 rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="https://github.com/profile/repo" />
-            <button type="button" onClick={handleGithubPrefill} disabled={githubLoading} className="bg-gray-800 hover:bg-gray-700 border border-gray-700 text-xs text-white font-semibold px-4 rounded-md transition-colors disabled:opacity-40">
-              {githubLoading ? 'Parsing...' : 'Fetch'}
-            </button>
-          </div>
-        </div>
-
-        <form onSubmit={runAudit} className="space-y-4 border-t border-gray-800 pt-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Project Title</label>
-              <input type="text" name="title" value={formData.title} onChange={handleInputChange} className="w-full bg-gray-950 border border-gray-800 rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-amber-500" required />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Target Role</label>
-              <input type="text" name="role" value={formData.role} onChange={handleInputChange} className="w-full bg-gray-950 border border-gray-800 rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-amber-500" required placeholder="e.g. Frontend Engineer" />
-            </div>
-          </div>
-
+ return (
+    // 1. Root Container: Padding shrinks on mobile (px-4) and expands on desktop (md:px-8)
+    <div className="min-h-screen bg-slate-900 text-slate-100 px-4 py-6 md:px-8 md:py-12">
+      <div className="max-w-7xl mx-auto space-y-8">
+        
+        {/* HEADER SECTION: Stacks vertically on mobile, row on desktop */}
+        <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-800 pb-6">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Tech Stack Matrix</label>
-            <input type="text" name="techStack" value={formData.techStack} onChange={handleInputChange} className="w-full bg-gray-950 border border-gray-800 rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-amber-500" required placeholder="React, Node.js, AWS" />
+            <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-white">
+              ◈ AI Portfolio Audit System
+            </h1>
+            <p className="text-slate-400 text-sm md:text-base mt-1">
+              Optimize your engineering narratives for technical recruiters and modern ATS architectures.
+            </p>
           </div>
+        </header>
 
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Case Study Description</label>
-            <textarea name="description" rows="5" value={formData.description} onChange={handleInputChange} className="w-full bg-gray-950 border border-gray-800 rounded-md p-2.5 text-sm text-white focus:outline-none focus:border-amber-500 font-mono" required placeholder="Describe what you engineered..."></textarea>
-          </div>
-
-          <div className="border-t border-gray-800 pt-3">
-            <label className="block text-xs font-semibold uppercase tracking-wider text-amber-400 mb-1">Target Job Description (ATS Optimizer)</label>
-            <textarea name="jobDescription" rows="4" value={formData.jobDescription} onChange={handleInputChange} className="w-full bg-gray-950 border border-amber-900/40 rounded-md p-2.5 text-sm text-gray-300 focus:outline-none focus:border-amber-500" placeholder="Paste recruiter job spec here..."></textarea>
-          </div>
-
-          <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-gray-950 font-bold py-3 rounded-md text-sm shadow-md transition-all">
-            {loading ? 'Processing System Metrics...' : 'Run Portfolio Audit'}
-          </button>
-        </form>
-      </div>
-
-      {/* SUGGESTION ANALYTICS */}
-      <div className="lg:col-span-7 bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-xl min-h-[600px] flex flex-col justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-white tracking-tight mb-4">AI Audit Analytics</h2>
+        {/* 2. CORE WORKSPACE GRID: 1 column on mobile/tablet, 12 columns split on desktop layout (lg:) */}
+        <main className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
-          {!loading && !result && (
-            <div className="text-gray-500 text-center py-32 flex flex-col items-center gap-2">
-              <span className="text-5xl">◈</span>
-              <p className="text-sm">Submit your input profile payload to unlock productivity audits.</p>
+          {/* ================= LEFT SIDE: INPUT WORKSPACE ================= */}
+          <section className="lg:col-span-5 bg-slate-800/50 p-4 md:p-6 rounded-xl border border-slate-800 space-y-5 h-auto">
+            <h2 className="text-xl font-semibold text-white border-b border-slate-800 pb-2">
+              Project Profile Workspace
+            </h2>
+            
+            {/* GitHub Prefill Box: flex-col on mobile, flex-row on small-tablet up */}
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input 
+                type="text" 
+                placeholder="Paste GitHub Repository URL..." 
+                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500"
+              />
+              <button className="w-full sm:w-auto whitespace-nowrap bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                Prefill Data
+              </button>
             </div>
-          )}
 
-          {loading && (
-            <div className="animate-pulse space-y-4 py-12">
-              <div className="h-10 bg-gray-950 rounded border border-gray-800"></div>
-              <div className="h-28 bg-gray-950 rounded border border-gray-800"></div>
-            </div>
-          )}
-
-          {result && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="flex items-center justify-between bg-gray-950 p-4 rounded-lg border border-gray-800">
+            {/* Input fields form tree: ensure w-full is everywhere */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Project Title</label>
+                <input type="text" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm" />
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-gray-500 block font-medium">Strength Rating</span>
-                  <p className="text-xs text-gray-400 mt-0.5">Based on metric inclusion alignment</p>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Target Technical Role</label>
+                  <input type="text" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm" />
                 </div>
-                <span className={`text-4xl font-black ${result.impactScore > 75 ? 'text-emerald-400' : 'text-amber-400'}`}>{result.impactScore}/100</span>
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Technology Stack Matrix</label>
+                  <input type="text" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm" />
+                </div>
               </div>
 
-              {result.keywordGaps && result.keywordGaps.length > 0 && (
-                <div className="bg-amber-950/20 border border-amber-900/50 p-4 rounded-lg">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-amber-400 mb-2">Identified ATS Keyword Gaps</h4>
-                  <div className="flex flex-wrap gap-1.5">
-                    {result.keywordGaps.map((keyword, i) => (
-                      <span key={i} className="text-xs bg-gray-950 text-gray-300 border border-gray-800 px-2 py-0.5 rounded font-mono">{keyword}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Narrative Description</label>
+                <textarea rows={4} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm resize-none" />
+              </div>
 
               <div>
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">Prioritized Action Items</h4>
-                <div className="space-y-3">
-                  {result.actionableChecklist.map((item, idx) => (
-                    <div key={idx} className="bg-gray-950 border border-gray-800 rounded-lg p-4 space-y-3">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex items-start gap-3">
-                          <input type="checkbox" className="mt-1 accent-amber-500 h-4 w-4 rounded" />
-                          <p className="text-sm text-gray-200 font-medium">{item.task}</p>
-                        </div>
-                        <span className={`text-[10px] tracking-wider uppercase px-2 py-0.5 rounded font-mono font-bold shrink-0 ${item.priority === 'high' ? 'bg-red-950/80 text-red-400 border border-red-900' : 'bg-gray-800 text-gray-400'}`}>{item.priority}</span>
-                      </div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Target Job Description (Optional)</label>
+                <textarea rows={4} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm resize-none" />
+              </div>
 
-                      {item.suggestedRewrite && (
-                        <div className="bg-gray-900/60 border border-gray-800 rounded p-3 text-xs space-y-2">
-                          <p className="text-gray-400 italic font-mono">"{item.suggestedRewrite}"</p>
-                          <button type="button" onClick={() => applyInlineFix(item.suggestedRewrite)} className="text-[11px] font-bold text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1">
-                            ➕ Append This Optimized Rewrite to Workspace
-                          </button>
-                        </div>
-                      )}
-                    </div>
+              <button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-3 rounded-lg font-semibold tracking-wide transition-colors text-sm shadow-lg">
+                Run Portfolio Audit Evaluation
+              </button>
+            </div>
+          </section>
+
+          {/* ================= RIGHT SIDE: LIVE AUDIT DASHBOARD ================= */}
+          <section className="lg:col-span-7 bg-slate-800/50 p-4 md:p-6 rounded-xl border border-slate-800 space-y-6">
+            <h2 className="text-xl font-semibold text-white border-b border-slate-800 pb-2">
+              Evaluation Engine Diagnostics
+            </h2>
+
+            {/* METRICS ROW: Stacks on mobile, splits into 2 cards on desktop */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 flex items-center justify-between">
+                <div>
+                  <p className="text-xs text-slate-400 uppercase font-medium">Impact Score Matrix</p>
+                  <p className="text-3xl font-extrabold text-emerald-400 mt-1">74<span className="text-sm text-slate-500">/100</span></p>
+                </div>
+                <div className="h-12 w-12 rounded-full border-4 border-emerald-500/20 border-t-emerald-400 animate-spin-slow"></div>
+              </div>
+
+              <div className="bg-slate-900 p-4 rounded-lg border border-slate-800">
+                <p className="text-xs text-slate-400 uppercase font-medium">Keyword Gap Identification</p>
+                {/* flex-wrap stops tags from clipping and driving off-screen */}
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {['Docker', 'AWS', 'CI/CD'].map((tech) => (
+                    <span key={tech} className="bg-rose-500/10 text-rose-400 text-xs px-2.5 py-1 rounded-md border border-rose-500/20 font-mono">
+                      -{tech}
+                    </span>
                   ))}
                 </div>
               </div>
             </div>
-          )}
-        </div>
+
+            {/* ACTIONABLE CHECKLIST ARCHITECTURE */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400">Actionable Checklist Refactors</h3>
+              
+              <div className="space-y-3">
+                {/* Checklist Card Template */}
+                <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-2">
+                    <p className="text-sm font-medium text-amber-400 flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-amber-400"></span>
+                      Incorporate explicit performance metrics.
+                    </p>
+                    <span className="self-start sm:self-auto bg-amber-500/10 text-amber-400 text-[10px] uppercase font-bold px-2 py-0.5 rounded border border-amber-500/20 tracking-wider">
+                      High Priority
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-950 p-3 rounded border border-slate-800/80">
+                    <p className="text-xs font-mono text-slate-500 uppercase tracking-wider mb-1">Suggested ATS Rewrite Matrix:</p>
+                    <p className="text-xs md:text-sm text-slate-300 italic leading-relaxed">
+                      "Engineered a reactive matrix-based architecture using React state engines, lowering layout re-render compute overhead by 42%..."
+                    </p>
+                  </div>
+
+                  <button className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3 py-1.5 rounded border border-slate-700 transition-colors ml-auto block">
+                    Sync to Workspace Canvas
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </main>
       </div>
-      
     </div>
   );
 }
