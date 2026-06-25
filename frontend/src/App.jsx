@@ -63,14 +63,28 @@ function App() {
     </div>
 
     {/* NAVIGATION LINKS SECTION */}
+    {/* NAVIGATION LINKS SECTION: Fully Wired to React State */}
     <div className="flex flex-wrap items-center justify-center gap-4 text-xs md:text-sm font-medium text-slate-400">
-      <a href="#home" className="hover:text-white transition-colors">Home</a>
-      <a href="#about" className="hover:text-white transition-colors">About</a>
-      <a href="#signin" className="hover:text-white transition-colors">Sign In</a>
       
-      <button className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-md font-bold transition-colors shadow-md">
+      {/* Tab Navigators */}
+      <button onClick={() => setCurrentTab('home')} className={`hover:text-white transition-colors bg-transparent border-none ${currentTab === 'home' ? 'text-amber-400 font-bold' : ''}`}>
+        Home
+      </button>
+      <button onClick={() => setCurrentTab('about')} className={`hover:text-white transition-colors bg-transparent border-none ${currentTab === 'about' ? 'text-amber-400 font-bold' : ''}`}>
+        About
+      </button>
+      <button onClick={() => setCurrentTab('history')} className={`hover:text-white transition-colors bg-transparent border-none ${currentTab === 'history' ? 'text-amber-400 font-bold' : ''}`}>
+        History
+      </button>
+      
+      {/* Modal Triggers */}
+      <button onClick={() => setShowLoginModal(true)} className="hover:text-white transition-colors bg-transparent border-none ml-4">
+        Sign In
+      </button>
+      <button onClick={() => setShowRegisterModal(true)} className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-md font-bold transition-colors shadow-md">
         Register
       </button>
+      
     </div>
 
   </div>
