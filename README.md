@@ -1,6 +1,6 @@
 # ◈ AI Portfolio Audit System
 
-<img src="frontend/src/assets/dashboard.png" alt="Project Dashboard" width="500"/>
+<img src="frontend/src/assets/dashboard.png.png" alt="Project Dashboard" width="500"/>
 
 An automated, developer-focused workspace built to refactor software engineering project summaries, analyze repository structures, and optimize impact descriptions to align perfectly against technical recruiter criteria and modern Applicant Tracking Systems (ATS).
 
