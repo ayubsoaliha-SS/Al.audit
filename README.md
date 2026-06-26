@@ -1,4 +1,6 @@
 # ◈ AI Portfolio Audit System
+**Live Demo:** [https://al-audit-frontend.vercel.app/](https://al-audit-frontend.vercel.app/)  
+**GitHub Repository:** [https://github.com/ayubsoaliha-SS/Al.audit](https://github.com/ayubsoaliha-SS/Al.audit)
 
 <img src="frontend/src/assets/dashboard.png" alt="Project Dashboard" width="500"/>
 
